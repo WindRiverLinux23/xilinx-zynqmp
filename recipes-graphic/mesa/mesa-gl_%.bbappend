@@ -1,1 +1,1 @@
-DRIDRIVERS_xilinx-zynqmp = "nouveau"
+DRIDRIVERS:xilinx-zynqmp = "nouveau"

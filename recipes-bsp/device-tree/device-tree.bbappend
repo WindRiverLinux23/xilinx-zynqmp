@@ -1,10 +1,10 @@
-YAML_DT_BOARD_FLAGS_xilinx-zynqmp = "{BOARD zcu102-rev1.0}"
-YAML_KERNEL_VERSION_xilinx-zynqmp = "wrlinux-cicd-zcu102"
-XSCTH_PROC_xilinx-zynqmp = "psu_cortexa53_0"
+YAML_DT_BOARD_FLAGS:xilinx-zynqmp = "{BOARD zcu102-rev1.0}"
+YAML_KERNEL_VERSION:xilinx-zynqmp = "wrlinux-cicd-zcu102"
+XSCTH_PROC:xilinx-zynqmp = "psu_cortexa53_0"
 
 DEPENDS += "virtual/kernel"
 
-do_configure_prepend_xilinx-zynqmp() {
+do_configure:prepend:xilinx-zynqmp() {
     if [ -e ${S}/device_tree/data/kernel_dtsi/${YAML_KERNEL_VERSION} ]; then
         rm -rf ${S}/device_tree/data/kernel_dtsi/${YAML_KERNEL_VERSION}
     fi
@@ -39,4 +39,4 @@ do_configure_prepend_xilinx-zynqmp() {
     cp ${STAGING_KERNEL_DIR}/include/dt-bindings/reset/xlnx-zynqmp-resets.h ${B}/device-tree/include/dt-bindings/reset
 }
 
-COMPATIBLE_MACHINE_xilinx-zynqmp = "xilinx-zynqmp"
+COMPATIBLE_MACHINE:xilinx-zynqmp = "xilinx-zynqmp"

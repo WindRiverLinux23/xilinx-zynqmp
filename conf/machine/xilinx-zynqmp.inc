@@ -7,8 +7,8 @@ require conf/machine/include/tune-cortexa53.inc
 MACHINE_FEATURES += "ext3 pci usbgadget usbhost vfat keyboard network"
 
 KERNEL_IMAGETYPE = "Image"
-KERNEL_DEVICETREE_xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb xilinx/zynqmp-zcu102-rev1.0-canfd.dtb"
-KERNEL_EXTRA_ARGS_append_xilinx-zynqmp = " DTC_FLAGS='-@'"
+KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb xilinx/zynqmp-zcu102-rev1.0-canfd.dtb"
+KERNEL_EXTRA_ARGS:append:xilinx-zynqmp = " DTC_FLAGS='-@'"
 
 SERIAL_CONSOLE = "115200 ttyPS0"
 
@@ -25,9 +25,9 @@ IMAGE_BOOT_FILES ?= " Image zynqmp-zcu102-rev1.0.dtb"
 
 # multilib support
 MULTILIBS ?= "multilib:lib32"
-DEFAULTTUNE_virtclass-multilib-lib32 ?= "armv7athf-neon"
+DEFAULTTUNE:virtclass-multilib-lib32 ?= "armv7athf-neon"
 
-XSERVER_append += "xf86-video-armsoc"
+XSERVER:append += "xf86-video-armsoc"
 OSTREE_BOOTLOADER_INCLUDE ?= ""
 OSTREE_SD_UBOOT_WIC1 ?= ""
 OSTREE_SD_BOOT_ALIGN ?= "4096"
@@ -42,8 +42,8 @@ OSTREE_NETINST_DEV ?= "/dev/mmcblk0,/dev/sda,/dev/vda"
 OSTREE_NETINST_ARGS ?= "${OSTREE_CONSOLE} bl=ufsd rdinit=/install instdev=${OSTREE_NETINST_DEV} instname=wrlinux instbr=\$BRANCH insturl=\$URL instab=${OSTREE_USE_AB} instsf=1 instdate=BUILD_DATE"
 OSTREE_COPY_IMAGE_BOOT_FILES = "1"
 INITRAMFS_IMAGE ??= ""
-IMAGE_BOOT_FILES_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'ostree', 'boot.scr', '', d)} ${@bb.utils.contains('DISTRO_FEATURES', 'ostree', '${INITRAMFS_IMAGE}-${MACHINE}.${INITRAMFS_FSTYPES};initramfs', '', d)}"
-MACHINEOVERRIDES_prepend_xilinx-zynqmp = "mali400:zynqmp:zynqmpeg:"
+IMAGE_BOOT_FILES:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'ostree', 'boot.scr', '', d)} ${@bb.utils.contains('DISTRO_FEATURES', 'ostree', '${INITRAMFS_IMAGE}-${MACHINE}.${INITRAMFS_FSTYPES};initramfs', '', d)}"
+MACHINEOVERRIDES:prepend:xilinx-zynqmp = "mali400:zynqmp:zynqmpeg:"
 
 OSTREE_BOOTSCR_PRECMD ?= "\
 setenv no_menu yes; \

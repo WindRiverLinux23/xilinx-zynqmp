@@ -157,7 +157,7 @@ https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842316/Linux+Prebuilt+Im
 
 and then add one line below to local.conf:
 
-IMAGE_BOOT_FILES_append = " /< path-to-BOOT.BIN >/BOOT.BIN;BOOT.BIN"
+IMAGE_BOOT_FILES:append = " /< path-to-BOOT.BIN >/BOOT.BIN;BOOT.BIN"
 
 After having built your project, a partitioned WIC image will be created in the
 deploy folder as follows:
@@ -364,8 +364,8 @@ PREFERRED_PROVIDER_virtual/libgl_xilinx-zynqmp = "mesa-gl"
 PREFERRED_PROVIDER_virtual/libgles1_xilinx-zynqmp = "libmali-xlnx"
 PREFERRED_PROVIDER_virtual/libgles2_xilinx-zynqmp = "libmali-xlnx"
 PREFERRED_PROVIDER_virtual/egl_xilinx-zynqmp = "libmali-xlnx"
-PNWHITELIST_xilinx += "libmali-xlnx"
-PNWHITELIST_xilinx += 'kernel-module-mali'
+PNWHITELIST:xilinx += "libmali-xlnx"
+PNWHITELIST:xilinx += 'kernel-module-mali'
 LICENSE_FLAGS_WHITELIST += "xilinx"
 _EOF
      $ bitbake wrlinux-image-std-sato
@@ -492,9 +492,9 @@ Then following the steps as below to generate the dtb files based on the HDF/XSA
      $ . ./environment-setup-x86_64-wrlinuxsdk-linux
      $ . ./oe-init-build-env
      $ cat << _EOF >> conf/local.conf
-PNWHITELIST_xilinx += 'device-tree'
-PNWHITELIST_xilinx += 'python3-dtc'
-PNWHITELIST_xilinx-tools += 'external-hdf'
+PNWHITELIST:xilinx += 'device-tree'
+PNWHITELIST:xilinx += 'python3-dtc'
+PNWHITELIST:xilinx-tools += 'external-hdf'
 HDF_BASE = "file://"
 HDF_PATH = "/< path-to-hdf >/system.xsa"
 HDF_MACHINE = "zcu102-zynqmp"
