@@ -27,7 +27,7 @@ IMAGE_BOOT_FILES ?= " Image zynqmp-zcu102-rev1.0.dtb"
 MULTILIBS ?= "multilib:lib32"
 DEFAULTTUNE:virtclass-multilib-lib32 ?= "armv7athf-neon"
 
-XSERVER:append += "xf86-video-armsoc"
+XSERVER:append = " xf86-video-armsoc"
 OSTREE_BOOTLOADER_INCLUDE ?= ""
 OSTREE_SD_UBOOT_WIC1 ?= ""
 OSTREE_SD_BOOT_ALIGN ?= "4096"
