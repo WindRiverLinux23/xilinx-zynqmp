@@ -22,9 +22,9 @@ index bec4746fe721..0f747fbd7ae3 100644
  dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu102-revB.dtb
  dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu102-rev1.0.dtb
 +dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu102-rev1.0-canfd.dtb
+ dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu102-rev1.1.dtb
  dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu104-revA.dtb
  dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu104-revC.dtb
- dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zcu106-revA.dtb
 diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-rev1.0-canfd.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-rev1.0-canfd.dts
 new file mode 100644
 index 000000000000..7865d2ebbe71

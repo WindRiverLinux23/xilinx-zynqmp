@@ -13,7 +13,7 @@ KERNEL_EXTRA_ARGS:append:xilinx-zynqmp = " DTC_FLAGS='-@'"
 SERIAL_CONSOLE = "115200 ttyPS0"
 
 PREFERRED_PROVIDER_virtual/kernel ??= "linux-yocto"
-PREFERRED_VERSION_linux-yocto ?= "5.10%"
+PREFERRED_VERSION_linux-yocto ?= "5.15%"
 
 MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
 IMAGE_FSTYPES += "tar.bz2 wic wic.bmap"
