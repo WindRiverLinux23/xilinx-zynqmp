@@ -5,7 +5,7 @@
 
 COMPATIBLE_MACHINE:xilinx-zynqmp = "xilinx-zynqmp"
 
-TARGET_SUPPORTED_KTYPES:xilinx-zynqmp = "standard"
+TARGET_SUPPORTED_KTYPES:xilinx-zynqmp = "standard preempt-rt"
 
 FILESEXTRAPATHS:prepend:xilinx-zynqmp := "${THISDIR}/files:"
 
