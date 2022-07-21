@@ -48,6 +48,7 @@ UBOOT_MACHINE = "xilinx_zynqmp_zcu102_rev1_0_defconfig"
 SPL_BINARY ?= "spl/boot.bin"
 PREFERRED_PROVIDER_u-boot = "u-boot-xlnx"
 UBOOT_SUFFIX = "img"
+NON_MULTILIB_RECIPES:append = " u-boot-xlnx"
 
 KERNEL_CLASSES  = " kernel-fitimage "
 
