@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append:xilinx-zynqmp = " file://0001-u-boot-xlnx-enable-u-boot-configure-CONFIG_OF_SEPARA.patch \
+	file://0001-Remove-redundant-YYLOC-global-declaration.patch \
 "
 
 UBOOT_VERSION:xilinx-zynqmp = "v2019.02"
