@@ -843,6 +843,13 @@ There is an example as below, download kernel from tftp server and mount NFS fil
 	# setenv serverip <server-ip>
 	# run bootcmd
 
+There is another example based on wic image, load kernel from sd boot partition and mount file system from /dev/mmcblk0p2.
+
+	# setenv bootfile fitImage
+	# setenv loadaddr 0x10000000
+	# setenv bootargs console=ttyPS0,115200n8 root=/dev/mmcblk0p2 rw earlycon=cdns,0xFF000000 ip=dhcp clk_ignore_unused
+	# setenv bootcmd 'fatload mmc 0:1 $loadaddr $bootfile; bootm $loadaddr'
+	# run bootcmd
 
 11.9. Notes
 -----------
