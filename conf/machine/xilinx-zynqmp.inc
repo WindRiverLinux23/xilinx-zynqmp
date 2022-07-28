@@ -31,7 +31,7 @@ DEFAULTTUNE:virtclass-multilib-lib32 ?= "armv7athf-neon"
 
 # secure boot related configurations
 UBOOT_SIGN_ENABLE = "${@bb.utils.contains("MACHINE_FEATURES", "secure-boot", "1", "", d)}"
-UBOOT_SIGN_KEYDIR = "${@bb.utils.contains("KERNEL_RAS_TYPE", "rsa4096", "${LAYER_PATH_wr-xilinx-zynqmp}/fitImage-rsa4096-keys", "${LAYER_PATH_wr-xilinx-zynqmp}/zynqmp_keys/fitImage-rsa2048-keys", d)}"
+UBOOT_SIGN_KEYDIR = "${@bb.utils.contains("FIT_SIGN_ALG", "rsa4096", "${LAYER_PATH_wr-xilinx-zynqmp}/zynqmp_keys/fitImage-rsa4096-keys", "${LAYER_PATH_wr-xilinx-zynqmp}/zynqmp_keys/fitImage-rsa2048-keys", d)}"
 UBOOT_MKIMAGE_DTCOPTS = "-I dts -O dtb -p 2000"
 UBOOT_SIGN_KEYNAME = "dev"
 # Key used to sign kernel and dtb parts in fit image
@@ -53,7 +53,7 @@ NON_MULTILIB_RECIPES:append = " u-boot-xlnx"
 KERNEL_CLASSES  = " kernel-fitimage "
 
 # Xilinx secure boot feature supports rsa2048 and rsa4096 key type.
-# Set KERNEL_RAS_TYPE as the expected value. The default one is rsa2048.
+# Set FIT_SIGN_ALG as the expected value. The default one is rsa2048.
 FIT_SIGN_ALG = "rsa2048"
 #FIT_SIGN_ALG = "rsa4096"
 
