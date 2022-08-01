@@ -53,14 +53,12 @@ NON_MULTILIB_RECIPES:append = " u-boot-xlnx"
 KERNEL_CLASSES  = " kernel-fitimage "
 
 # Xilinx secure boot feature supports rsa2048 and rsa4096 key type.
-# Set FIT_SIGN_ALG as the expected value. The default one is rsa2048.
-FIT_SIGN_ALG = "rsa2048"
-#FIT_SIGN_ALG = "rsa4096"
+# Set FIT_SIGN_ALG as the expected value in local.conf. The default one is rsa2048.
+FIT_SIGN_ALG ?= "rsa2048"
 
 # Xilinx secure boot feature supports sha1 and sha256 digest.
-# Set KERNEL_CSUM_TYPE as the expected value. The default one is sha1.
-FIT_HASH_ALG = "sha256"
-#FIT_HASH_ALG = "sha1"
+# Set FIT_HASH_ALG as the expected value in local.conf. The default one is sha256.
+FIT_HASH_ALG ?= "sha256"
 
 INSECURE_KEY_MSG = "\
 WARNING: The insecure sample keys are used for secure Boot.\
