@@ -2,6 +2,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append:xilinx-zynqmp = " file://0001-u-boot-xlnx-enable-u-boot-configure-CONFIG_OF_SEPARA.patch \
 	file://0001-Remove-redundant-YYLOC-global-declaration.patch \
+	${@bb.utils.contains('UBOOT_SIGN_ENABLE', '1', 'file://0001-u-boot-xlnx-force-to-build-dtb-file.patch', '', d)} \
 "
 
 UBOOT_VERSION:xilinx-zynqmp = "v2019.02"

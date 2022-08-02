@@ -1,0 +1,34 @@
+From 192cd47ae6cc0f0f0b376cff4d9de42288f2330a Mon Sep 17 00:00:00 2001
+From: Meng Li <Meng.Li@windriver.com>
+Date: Tue, 2 Aug 2022 15:55:01 +0800
+Subject: [PATCH] u-boot-xlnx: force to build dtb file
+
+When secure boot feature is enabled, the public key is stored
+in dtb. And then build u-boot.elf with the dtb file of including
+public key. But when the dtb file is passed into u-boot building
+environment with parameter EXT_DTB, the dts/dt.dtb is not
+regenerated again, and causing there is no public key in u-boot.elf.
+So, add the FORCE flag to build  dts/dt.dtb forcely, so that there
+is a expected public key into final u-boot.elf file.
+
+Signed-off-by: Meng Li <Meng.Li@windriver.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index ab0c42c133..83d0d64889 100755
+--- a/Makefile
++++ b/Makefile
+@@ -1005,7 +1005,7 @@ endif
+ PHONY += dtbs
+ dtbs: dts/dt.dtb
+ 	@:
+-dts/dt.dtb: u-boot
++dts/dt.dtb: u-boot FORCE
+ 	$(Q)$(MAKE) $(build)=dts dtbs
+ 
+ quiet_cmd_copy = COPY    $@
+-- 
+2.36.1
+
