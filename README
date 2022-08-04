@@ -827,8 +827,8 @@ Detail steps as below:
 Note:
 When building xilinx-zynqmp BSP project with secure-boot template, the kernel image type is fitImage that
 includes dtb and kernel image. They are all signed by the private key of a RSA-2048/RSA-4096 key that is in
-<path_to_project>/layers/xilinx-zynqmp/fitImage-rsa2048-keys and
-<path_to_project>/layers/xilinx-zynqmp/fitImage-rsa4096-keys
+<path_to_project>/layers/xilinx-zynqmp/zynqmp_keys/fitImage-rsa2048-keys and
+<path_to_project>/layers/xilinx-zynqmp/zynqmp_keys/fitImage-rsa4096-keys
 
 11.8.2 Boot fitImage
 --------------------
