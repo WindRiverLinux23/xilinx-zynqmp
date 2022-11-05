@@ -121,8 +121,8 @@ Run the following command to load the kernel image and DTB image:
 	=> setenv bootargs console=ttyPS0,115200 root=/dev/mmcblk0p2 rw rootwait earlycon=cdns,mmio,0xFF000000 clk_ignore_unused
 	=> mmc rescan
 	=> fatload mmc 0 0x10000000 Image
-	=> fatload mmc 0 0x11800000 zynqmp-zcu102-rev1.0.dtb
-	=> booti 0x10000000 - 0x11800000
+	=> fatload mmc 0 0x13800000 zynqmp-zcu102-rev1.0.dtb
+	=> booti 0x10000000 - 0x13800000
 
 4.2 NFS boot
 ------------
@@ -136,7 +136,7 @@ Run the following command to load the kernel image and DTB image:
 ------------------------------------------------------------
 
 	=> setenv bootargs console=ttyPS0,115200 earlycon=cdns,mmio,0xFF000000 clk_ignore_unused root=/dev/nfs rw nfsroot=serverip:path_root_rootfs ip=dhcp
-	=> tftpboot 0x10000000 Image; tftpboot 0x11800000 dtb; booti 0x10000000 - 0x11800000
+	=> tftpboot 0x10000000 Image; tftpboot 0x13800000 dtb; booti 0x10000000 - 0x13800000
 
 5. WIC Notes
 ============
@@ -177,7 +177,7 @@ information.
 
 Board can boot automatically by set the below uboot environment variables:
 
-=> setenv bootfile Image; setenv fdtfile zynqmp-zcu102-rev1.0.dtb;  setenv loadaddr 0x10000000; setenv fdtaddr 0x11800000;
+=> setenv bootfile Image; setenv fdtfile zynqmp-zcu102-rev1.0.dtb;  setenv loadaddr 0x10000000; setenv fdtaddr 0x13800000;
 
 => setenv bootargs 'root=/dev/mmcblk0p2 rw rootdelay=5 console=ttyPS0,115200n8'
 
@@ -342,9 +342,9 @@ And also, the USB Jumper Settings on the board ZCU102 are described below.
 In addition to the method which modifies "dr_mode" property in dts file, you can change this property
 by using "fdt" u-boot command. The example for USB device mode is as described below:
 
-	=> tftpboot 0x10000000 Image; tftpboot 0x11800000 dtb
-	=> fdt addr 0x11800000; fdt resize; fdt set /axi/usb0@ff9d0000/dwc3@fe200000 dr_mode peripheral
-	=> booti 0x10000000 - 0x11800000
+	=> tftpboot 0x10000000 Image; tftpboot 0x13800000 dtb
+	=> fdt addr 0x13800000; fdt resize; fdt set /axi/usb0@ff9d0000/dwc3@fe200000 dr_mode peripheral
+	=> booti 0x10000000 - 0x13800000
 
 8.6.3 USB OTG
 -------------
@@ -354,9 +354,9 @@ by using "fdt" u-boot command. The example for USB device mode is as described b
 
 The example to change "dr_mode" to "otg" is as described below:
 
-	=> tftpboot 0x10000000 Image; tftpboot 0x11800000 dtb
-	=> fdt addr 0x11800000; fdt resize; fdt set /axi/usb0@ff9d0000/dwc3@fe200000 dr_mode otg
-	=> booti 0x10000000 - 0x11800000
+	=> tftpboot 0x10000000 Image; tftpboot 0x13800000 dtb
+	=> fdt addr 0x13800000; fdt resize; fdt set /axi/usb0@ff9d0000/dwc3@fe200000 dr_mode otg
+	=> booti 0x10000000 - 0x13800000
 
 NOTE: USB OTG mode can only work at USB2.0 speed for host & device, and file this question to
 the vendor, the following link is their answer:
