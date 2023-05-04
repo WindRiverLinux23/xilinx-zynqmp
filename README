@@ -26,7 +26,7 @@ This layer and wrlinux layer should be added to bblayers.conf.
 
 License
 -------
-Copyright (C) 2019 Wind River Systems, Inc.
+Copyright (C) 2023 Wind River Systems, Inc.
 
 Source code included in the tree for individual recipes is under the LICENSE
 stated in the associated recipe (.bb file) unless otherwise stated.

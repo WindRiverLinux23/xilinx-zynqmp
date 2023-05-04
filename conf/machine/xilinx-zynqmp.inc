@@ -7,14 +7,14 @@ require conf/machine/include/arm/armv8a/tune-cortexa53.inc
 MACHINE_FEATURES += "ext3 pci usbgadget usbhost vfat keyboard network"
 
 KERNEL_IMAGETYPE = "${@bb.utils.contains('UBOOT_SIGN_ENABLE', '1', 'fitImage', 'Image', d)}"
-KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb xilinx/zynqmp-zcu102-rev1.0-canfd.dtb"
+KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb"
 KERNEL_EXTRA_ARGS:append:xilinx-zynqmp = " DTC_FLAGS='-@'"
 
 SERIAL_CONSOLE = "115200 ttyPS0"
 
 PREFERRED_PROVIDER_virtual/kernel ??= "linux-yocto"
-PREFERRED_VERSION_linux-yocto ?= "5.15%"
-PREFERRED_VERSION_linux-yocto-rt ?= "5.15%"
+PREFERRED_VERSION_linux-yocto ?= "6.1%"
+PREFERRED_VERSION_linux-yocto-rt ?= "6.1%"
 
 MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
 IMAGE_FSTYPES += "tar.bz2 wic wic.bmap"
@@ -44,7 +44,7 @@ UBOOT_LOADADDRESS = "0x80000"
 UBOOT_ELF="u-boot.elf"
 UBOOT_ELF_SUFFIX ?= "elf"
 
-UBOOT_MACHINE = "xilinx_zynqmp_zcu102_rev1_0_defconfig"
+UBOOT_MACHINE = "xilinx_zynqmp_virt_defconfig"
 SPL_BINARY ?= "spl/boot.bin"
 PREFERRED_PROVIDER_u-boot = "u-boot-xlnx"
 UBOOT_SUFFIX = "img"
