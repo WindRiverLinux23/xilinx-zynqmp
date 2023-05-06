@@ -4,7 +4,7 @@
 DEFAULTTUNE = "cortexa53"
 require conf/machine/include/arm/armv8a/tune-cortexa53.inc
 
-MACHINE_FEATURES += "ext3 pci usbgadget usbhost vfat keyboard network"
+MACHINE_FEATURES += "ext3 pci usbgadget usbhost vfat keyboard network mali400"
 
 KERNEL_IMAGETYPE = "${@bb.utils.contains('UBOOT_SIGN_ENABLE', '1', 'fitImage', 'Image', d)}"
 KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb"
@@ -47,7 +47,6 @@ UBOOT_ELF_SUFFIX ?= "elf"
 UBOOT_MACHINE = "xilinx_zynqmp_virt_defconfig"
 SPL_BINARY ?= "spl/boot.bin"
 PREFERRED_PROVIDER_u-boot = "u-boot-xlnx"
-UBOOT_SUFFIX = "img"
 NON_MULTILIB_RECIPES:append = " u-boot-xlnx"
 
 KERNEL_CLASSES  = " kernel-fitimage "
