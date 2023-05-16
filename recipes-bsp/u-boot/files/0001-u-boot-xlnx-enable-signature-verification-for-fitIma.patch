@@ -1,0 +1,30 @@
+From 0fbde372d15225a4fe1457c0a2a0944934b72412 Mon Sep 17 00:00:00 2001
+From: Meng Li <Meng.Li@windriver.com>
+Date: Tue, 16 May 2023 10:45:22 +0000
+Subject: [PATCH] u-boot-xlnx: enable signature verification for fitImage
+
+When building fitImage and sign it with RSA private key.
+The public key is saved in u-boot dtb file. So, enable
+CONFIG_FIT_SIGNATURE config so that signature is verified
+when booting fitImage.
+
+Signed-off-by: Meng Li <Meng.Li@windriver.com>
+---
+ configs/xilinx_zynqmp_virt_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configs/xilinx_zynqmp_virt_defconfig b/configs/xilinx_zynqmp_virt_defconfig
+index 8a9703097e..58482a1fe4 100644
+--- a/configs/xilinx_zynqmp_virt_defconfig
++++ b/configs/xilinx_zynqmp_virt_defconfig
+@@ -23,6 +23,7 @@ CONFIG_DISTRO_DEFAULTS=y
+ CONFIG_REMAKE_ELF=y
+ CONFIG_FIT=y
+ CONFIG_FIT_VERBOSE=y
++CONFIG_FIT_SIGNATURE=y
+ CONFIG_SPL_LOAD_FIT=y
+ CONFIG_SPL_LOAD_FIT_ADDRESS=0x10000000
+ # CONFIG_ARCH_FIXUP_FDT_MEMORY is not set
+-- 
+2.35.5
+
