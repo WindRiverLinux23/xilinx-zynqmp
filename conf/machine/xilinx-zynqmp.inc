@@ -46,6 +46,7 @@ UBOOT_ELF_SUFFIX ?= "elf"
 
 UBOOT_MACHINE = "xilinx_zynqmp_virt_defconfig"
 SPL_BINARY ?= "spl/boot.bin"
+UBOOT_SUFFIX = "${@bb.utils.contains('UBOOT_SIGN_ENABLE', '1', 'img', 'bin', d)}"
 PREFERRED_PROVIDER_u-boot = "u-boot-xlnx"
 NON_MULTILIB_RECIPES:append = " u-boot-xlnx"
 
