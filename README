@@ -718,16 +718,15 @@ To create PMU firmware, please refer to section
 [Create PMU Firmware for Platform Management Unit] in [9]
 
 11.5.2.3 Get FPGA bit stream file
-Download 2019.1-zcu102-release.tar.xz from below link:
-https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/135364615/Zynq+2019.1+Release
+Download 2022.2_zcu102_release.tar.xz from below link:
+https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2520219649/2022.2+Release
 And then get the system.bit file from the release package.
 
 11.5.2.4 Build the arm trust firmware
 Detail steps as below:
 	$ git clone https://github.com/Xilinx/arm-trusted-firmware.git
 	$ cd arm-trusted-firmware
-	$ git branch xilinx-v2019.1 xilinx-v2019.1
-	$ git checkout xilinx-v2019.1
+	$ git checkout xlnx_rebase_v2.6
 	$ export CROSS_COMPILE=<path_to_toolchain>/aarch64-linux-gnu-
 	$ export ARCH=aarch64
 	$ make realclean
@@ -735,6 +734,8 @@ Detail steps as below:
 	$ make PLAT=zynqmp RESET_TO_BL31=1
 
 	At last, get the bl31.elf file
+
+User also can copy the pre-build bl31.elf file from 2022.2_zcu102_release.tar.xz.
 
 11.5.2.5 Generate black key related files for boot header mode
 To create black key related files, please refer to section
@@ -760,10 +761,13 @@ So far, there are all the related files as below to generate BOOT.bin.
 	u-boot.elf	//The u-boot with the public key of RSA-2048/RSA-4096 key.
 
 Put the above files into the same directory, and run below command to create BOOT.BIN.
-Note: Please ensure the necessary environment is set in current terminal windows.
 
 	$ bootgen -image generate_secure_boot_bh.bif -arch zynqmp -w -o BOOT.BIN
 
+Note: Please ensure the necessary environment is set in current terminal windows.
+      For example, if Vivado 2022.2 is downloaded and installed, user can set
+      environment variable with below command:
+	$ source <Vivado-path>/tools/Xilinx/Vivado/2022.2/settings64.sh
 
 11.6. Programming BBRAM and eFUSE
 ---------------------------------
