@@ -1,1 +1,0 @@
-DRIDRIVERS:xilinx-zynqmp = "nouveau"
