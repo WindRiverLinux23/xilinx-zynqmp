@@ -8,7 +8,7 @@ BSP_XILINX_DERIVED:append = " xilinx-zynqmp"
 MACHINE_FEATURES += "ext3 pci usbgadget usbhost vfat keyboard network mali400"
 
 KERNEL_IMAGETYPE = "${@bb.utils.contains('UBOOT_SIGN_ENABLE', '1', 'fitImage', 'Image', d)}"
-KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb"
+KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb xilinx/zynqmp-zcu102-rev1.0-canfd.dtb"
 KERNEL_EXTRA_ARGS:append:xilinx-zynqmp = " DTC_FLAGS='-@'"
 
 SERIAL_CONSOLE = "115200 ttyPS0"
