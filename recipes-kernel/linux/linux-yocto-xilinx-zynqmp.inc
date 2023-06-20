@@ -6,3 +6,5 @@
 COMPATIBLE_MACHINE:xilinx-zynqmp = "xilinx-zynqmp"
 
 TARGET_SUPPORTED_KTYPES:xilinx-zynqmp = "standard preempt-rt"
+
+KERNEL_DTC_FLAGS:append:xilinx-zynqmp = " -@"
