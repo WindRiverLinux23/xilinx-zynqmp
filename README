@@ -57,11 +57,11 @@ THE SOFTWARE.
 The following table summarizes the valid Wind River Linux distros for this BSP.
 'Y' in each content cell stands for supported; 'N' stands for not supported:
 
-  +--------------+-------------+-------------+------------------+
-  | valid/distro |   wrlinux   | wrlinux-cgl | wrlinux-std-sato |
-  +--------------+-------------+-------------+------------------+
-  |    valid     |      Y      |      N      |         Y        |
-  +--------------+-------------+-------------+------------------+
+  +--------------+-------------+------------------+
+  | valid/distro |   wrlinux   | wrlinux-graphics |
+  +--------------+-------------+------------------+
+  |    valid     |      Y      |         Y        |
+  +--------------+-------------+------------------+
 
 For the supported kernel type for this BSP, check the TARGET_SUPPORTED_KTYPES
 by running 'bitbake -e | grep "^TARGET_SUPPORTED_KTYPES"'.
@@ -252,14 +252,14 @@ Connect loudspeaker or headset with display monitor, and then run below commands
 7.3 suspend/resume
 ------------------
 
-"Suspend-To-RAM" is supportted by running below command:
+"Suspend-To-RAM" is supported by running below command:
 
 	# echo mem > /sys/power/state
 
-Wakeup system, customer can use network, rtc, console and so on, it depends on concrete scenario.
-Below is an example of wakeing up by console.
+To wake up system, customer can use network, rtc, console and so on, it depends on concrete scenario.
+Below is an example to wake up system by console.
 Run below command before entering suspend status.
-	# echo enabled > /sys/devices/platform/amba/ff000000.serial/tty/ttyPS0/power/wakeup
+	# echo enabled > /sys/devices/platform/axi/ff000000.serial/tty/ttyPS0/power/wakeup
 And then, press Enter key in console window.
 
 7.4 System Monitor
@@ -295,6 +295,7 @@ FMC extend board(https://www.xilinx.com/products/boards-and-kits/1-12nths4.html)
 	# ip link set can2 up type can bitrate 125000 dbitrate 8000000 fd on
 	# candump can1 &
 	# cansend can2 5A1#11.22.33.44.55.66.77.88
+	# cansend can2 5A1##300112233445566778899aabbccddeeff
 	# ip -d -s link show can1
 	# ip -d -s link show can2
 
@@ -304,8 +305,9 @@ There is a Xilinx Wiki link as below, it is a CANFD development guide.
 It may offer some help when customer develops CANFD feature on their own platform.
 https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842496/Linux+CAN+driver
 
-If customer wants to implement their own or more canfd devices, please connect with
-Xilinx to get professional technical support about how to design CANFD on FPGA side.
+NOTE: The Xilinx official BOOT.BIN release doesn't contain the FPGA implementation of
+CANFD, please connect with Xilinx to get professional technical support about how to
+design CANFD on FPGA side.
 
 7.6 USB
 -------
@@ -316,7 +318,7 @@ in the following link:
 
   https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841729/Zynq+Ultrascale+MPSOC+Linux+USB+device+driver
 
-And also, the USB Jumper Settings on the board ZCU102 are described below.
+And the USB Jumper Settings on the board ZCU102 are described below.
 
 7.6.1 USB Host
 --------------
@@ -334,7 +336,7 @@ In addition to the method which modifies "dr_mode" property in dts file, you can
 by using "fdt" u-boot command. The example for USB device mode is as described below:
 
 	=> tftpboot 0x10000000 Image; tftpboot 0x13800000 dtb
-	=> fdt addr 0x13800000; fdt resize; fdt set /axi/usb0@ff9d0000/dwc3@fe200000 dr_mode peripheral
+	=> fdt addr 0x13800000; fdt resize; fdt set /axi/usb@ff9d0000/usb@fe200000 dr_mode peripheral
 	=> booti 0x10000000 - 0x13800000
 
 7.6.3 USB OTG
@@ -346,24 +348,22 @@ by using "fdt" u-boot command. The example for USB device mode is as described b
 The example to change "dr_mode" to "otg" is as described below:
 
 	=> tftpboot 0x10000000 Image; tftpboot 0x13800000 dtb
-	=> fdt addr 0x13800000; fdt resize; fdt set /axi/usb0@ff9d0000/dwc3@fe200000 dr_mode otg
+	=> fdt addr 0x13800000; fdt resize; fdt set /axi/usb@ff9d0000/usb@fe200000 dr_mode otg
 	=> booti 0x10000000 - 0x13800000
 
-NOTE: USB OTG mode can only work at USB2.0 speed for host & device, and file this question to
+NOTE:
+1. USB OTG mode can only work at USB2.0 speed for host & device, and file this question to
 the vendor, the following link is their answer:
   https://support.xilinx.com/s/question/0D52E00006hpgaGSAQ/otg-in-zcu102-with-rev-1-0-doesnt-work-on-the-latest-sdk-v20174
+2. USB OTG mode requires that the kernel option CONFIG_USB_DWC3_OTG is enabled.
 
 7.7 PCIe
 --------
 
-Only some limited PCIe devices were supported based on the SDK2018.02 and the
+Only some limited PCIe devices were supported based on the SDK2023.01 and the
 following link:
 
-  http://www.wiki.xilinx.com/ZynqMP+Linux+PCIe+Root+Port
-
-As mentioned in this website, NVMe SSD and TIGON3 have been validated. It is not
-recommended to use other PCIe devices(Not mentioned in this website) because it
-might bring the board with a little electrical instability on ZCU102 Rev 1.0.
+  https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842417/Linux+ZynqMP+PS-PCIe+Root+Port+Driver
 
 7.8 GPU
 -------
@@ -425,8 +425,8 @@ from linux side in running time. A simple example as below:
 ---------------------------------
 
 Download a xilinx prebuilt bitstream file with below link:
-https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/183304302/2019.2+Release
-Then, extract the .bit file from package 2019.2-zcu102-release.tar.xz and rename it into system.bit
+https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2520219649/2022.2+Release
+Then, extract the .bit file from package 2022.2_zcu102_release.tar.xz and rename it into system.bit
 
 8.2 Generate binary file
 --------------------------
@@ -434,7 +434,7 @@ Then, extract the .bit file from package 2019.2-zcu102-release.tar.xz and rename
 Because xilinx-zynqmp platform only supports binary format for updating FPGA, it is need
 to change the .bit file into binary format with below commands:
  - set environment variable
- # source xxx/Vivado/Vivado/2019.2/settings64.sh
+ # source xxx/Vivado/Vivado/2022.2/settings64.sh
 
  - generate the .bin from .bit file using Bootgen
  # bootgen -image Bitstream.bif -arch zynqmp -process_bitstream bin	(For 2017.4 and earlier releases)
@@ -570,7 +570,7 @@ To use secure boot feature, assume that you are:
    encryption, hardware root trust, RSA, AES, key source, certificate, etc.
 
 Hardware preparations:
- - A host machine installed with Xilix Design Tool.
+ - A host machine installed with Xilinx Design Tool.
  - A host machine installed with aarch64 cross-compile toolchain.
  - Xilinx ZynqMP ZCU102 development sets with Silicon version 4.
 
@@ -636,7 +636,7 @@ and SHA hardware accelerator implements the SHA-3 algorithm and produces a 384
 bits digest, which is used together with the RSA accelerator to provide images
 authentication.
 
-Please refer to the chpater 12 in [3] for more secure boot information.
+Please refer to the chapter 12 in [3] for more secure boot information.
 
 
 10.5. Using Xilinx Design tools to make BOOT.BIN with AES encryption and RSA signature
@@ -647,7 +647,7 @@ Prerequisites:
   * RSA key pair related knowledges, like using openssl to make RSA key pair.
   * Please carefully read chapter 8, 11, 12 in [3], chapter 8 and 16 in [4],
     chapter 5 in [9] and all content of [5] in References section.
-  * Download and install Xilinx SDK 2019.1 or later version via link [7].
+  * Download and install Xilinx SDK 2022.2 or later version via link [7].
 
 After having downloaded and installed Xilinx SDK, then you can start to make
 RSA key pair and assemble your own zynqmp BOOT.BIN by bootgen command.
@@ -763,7 +763,7 @@ Note: Please ensure the necessary environment is set in current terminal windows
 
 10.6. Programming BBRAM and eFUSE
 ---------------------------------
-After all the development effort, it is recommend to use BBRAM or eFUSE to
+After all the development effort, it is recommended to use BBRAM or eFUSE to
 save key for protecting product. About how to burn BBRAM and eFUSE, please
 refer to [5].
 
