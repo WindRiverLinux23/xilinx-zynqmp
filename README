@@ -218,6 +218,9 @@ Add crashkernel=512M to the kernel cmdline
    $ cansend can0 1F334455#1122334455667788
    $ ip link set can0 down
 
+NOTE: The 3-4 and 5-6 pins of J98 should be connected by jumpers to install 120ohm
+between CAN_H and CAN_L.
+
 7.2 DisplayPort
 ---------------
 
