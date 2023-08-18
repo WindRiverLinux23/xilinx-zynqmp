@@ -12,6 +12,10 @@ KERNEL_DEVICETREE:xilinx-zynqmp = "xilinx/zynqmp-zcu102-rev1.0.dtb xilinx/zynqmp
 
 SERIAL_CONSOLE = "115200 ttyPS0"
 
+# variables needed by xilinx-bootbin
+PREFERRED_PROVIDER_virtual/boot-bin ??= "xilinx-bootbin"
+SOC_FAMILY ?= "zynqmp"
+
 PREFERRED_PROVIDER_virtual/kernel ??= "linux-yocto"
 PREFERRED_VERSION_linux-yocto ?= "6.1%"
 PREFERRED_VERSION_linux-yocto-rt ?= "6.1%"

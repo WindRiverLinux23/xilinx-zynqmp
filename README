@@ -148,11 +148,10 @@ information about WIC:
 
 https://docs.yoctoproject.org/singleindex.html#creating-partitioned-images-using-wic
 
-5.1 Build WIC image within BOOT.BIN in boot partition
------------------------------------------------------
+5.1 Build a WIC image within prebuilt BOOT.BIN
+----------------------------------------------
 
-BOOT.BIN is the bootloader for zcu102 board. Because of license issue, it isn't
-integrated into WRLinux. You can download it from the website:
+BOOT.BIN is the bootloader for zcu102 board. It can be downloaded from the website:
 
 https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842316/Linux+Prebuilt+Images
 
@@ -160,15 +159,48 @@ and then add one line below to local.conf:
 
 IMAGE_BOOT_FILES:append = " /< path-to-BOOT.BIN >/BOOT.BIN;BOOT.BIN"
 
-After having built your project, a partitioned WIC image will be created in the
-deploy folder as follows:
+After building project, a partitioned WIC image will be created in the deploy folder as follows:
 
   path_to_your_project/build/tmp-glibc/deploy/images/xilinx-zynqmp/wrlinux-image-<rootfs_type>-xilinx-zynqmp.wic
 
 There are two partitions in this WIC images, the first one is to hold the boot
 images(including kernel/dtb/BOOT.BIN), the second is the related root file system.
 
-5.2 Boot the board from the WIC SD card
+5.2 Build a bootable WIC image
+------------------------------
+Besides the above method which uses prebuilt BOOT.BIN, WRLinux can build BOOT.BIN and
+create a bootable WIC image by following the steps as below:
+
+     $ cd path_of_project
+     $ . ./environment-setup-x86_64-wrlinuxsdk-linux
+     $ . ./oe-init-build-env
+     $ cat << _EOF >> conf/local.conf
+CUSTOMER_RECIPES:xilinx += 'bootgen'
+CUSTOMER_RECIPES:xilinx += 'u-boot-xlnx-scr'
+CUSTOMER_RECIPES:xilinx += 'xilinx-bootbin'
+CUSTOMER_RECIPES:xilinx += 'fsbl'
+CUSTOMER_RECIPES:xilinx += 'arm-trusted-firmware'
+CUSTOMER_RECIPES:xilinx += 'pmufw'
+CUSTOMER_RECIPES:xilinx += 'device-tree'
+CUSTOMER_RECIPES:virtualization-layer += 'python3-dtc'
+CUSTOMER_RECIPES:xilinx-tools += 'bitstream-extraction'
+CUSTOMER_RECIPES:xilinx-tools += 'external-hdf'
+CUSTOMER_RECIPES:xilinx-standalone += 'pmu-firmware'
+CUSTOMER_RECIPES:xilinx-standalone += 'fsbl-firmware'
+PREFERRED_PROVIDER_virtual/boot-bin = "xilinx-bootbin"
+IMAGE_BOOT_FILES:append = " \${DEPLOY_DIR_IMAGE}/boot.bin;BOOT.BIN"
+IMAGE_INSTALL:append = " xilinx-bootbin"
+BB_NO_NETWORK = '0'
+HDF_MACHINE = "zcu102-zynqmp"
+YAML_DT_BOARD_FLAGS ?= "{BOARD zcu102-rev1.0}"
+NON_MULTILIB_RECIPES:append = " fsbl-firmware pmu-firmware"
+_EOF
+     $ bitbake wrlinux-image-std
+
+After building project, a partitioned WIC image will be created in the deploy folder as follows:
+path_to_your_project/build/tmp-glibc/deploy/images/xilinx-zynqmp/wrlinux-image-<rootfs_type>-xilinx-zynqmp.wic
+
+5.3 Boot the board from the WIC SD card
 ---------------------------------------
 
 Insert the SD card into the board and power on, then set the proper u-boot
