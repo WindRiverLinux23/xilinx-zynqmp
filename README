@@ -430,8 +430,8 @@ PREFERRED_PROVIDER_virtual/libgl:xilinx-zynqmp = "mesa-gl"
 PREFERRED_PROVIDER_virtual/libgles1:xilinx-zynqmp = "libmali-xlnx"
 PREFERRED_PROVIDER_virtual/libgles2:xilinx-zynqmp = "libmali-xlnx"
 PREFERRED_PROVIDER_virtual/egl:xilinx-zynqmp = "libmali-xlnx"
-WRL_RECIPES:xilinx += "libmali-xlnx"
-WRL_RECIPES:xilinx += 'kernel-module-mali'
+CUSTOMER_RECIPES:xilinx += "libmali-xlnx"
+CUSTOMER_RECIPES:xilinx += 'kernel-module-mali'
 LICENSE_FLAGS_ACCEPTED += "xilinx"
 MACHINE_FEATURES:xilinx-zynqmp += " mali400"
 _EOF
@@ -559,9 +559,9 @@ Then following the steps as below to generate the dtb files based on the HDF/XSA
      $ . ./environment-setup-x86_64-wrlinuxsdk-linux
      $ . ./oe-init-build-env
      $ cat << _EOF >> conf/local.conf
-WRL_RECIPES:xilinx += 'device-tree'
-WRL_RECIPES:xilinx += 'python3-dtc'
-WRL_RECIPES:xilinx-tools += 'external-hdf'
+CUSTOMER_RECIPES:xilinx += 'device-tree'
+CUSTOMER_RECIPES:xilinx += 'python3-dtc'
+CUSTOMER_RECIPES:xilinx-tools += 'external-hdf'
 HDF_BASE = "file://"
 HDF_PATH = "/< path-to-hdf >/system.xsa"
 HDF_MACHINE = "zcu102-zynqmp"
