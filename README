@@ -866,7 +866,7 @@ includes dtb and kernel image. They are all signed by the private key of a RSA-2
 The fitImage is booted with command "bootm".
 There is an example as below, download kernel from tftp server and mount NFS file system.
 
-	# setenv bootargs console=ttyPS0,115200n8 root=/dev/nfs rw rootwait earlycon=cdns,0xFF000000 nfsroot=$serverip:<path_to_nfs>,v3,tcp ip=dhcp clk_ignore_unused
+	# setenv bootargs console=ttyPS0,115200n8 root=/dev/nfs rw rootwait earlycon=cdns,0xFF000000 nfsroot=$serverip:<path_to_nfs> ip=dhcp clk_ignore_unused
 	# setenv bootcmd 'tftpboot 0x10000000 $serverip:<path_to_kernel>/fitImage; bootm 0x10000000'
 	# setenv ipaddr <board-ip>
 	# setenv netmask <board-netmask>
