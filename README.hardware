@@ -72,7 +72,7 @@ the corresponding h/w features exist.
 3.2 Patch integrated and Unsupported Features
 ---------------------------------------------
 
-The following features are not validated:
+The following features are not supported and not validated:
 
   x HPC0, HPC1 ports (One for imx274 camera)
   x Two HDMI ports
